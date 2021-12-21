@@ -6,18 +6,20 @@ const { BCRYPT_ROUNDS } = require("../../config");
 
 const validateUserLogin = (req, res, next) => {
   const user = req.body;
+
   if (
     !user.password ||
     user.password.trim() === "" ||
-    !user.email ||
-    user.email.trim() === ""
+    !user.username ||
+    user.username.trim() === ""
   ) {
     return next({
       status: 400,
-      message: "email and password required",
+      message: "username and password required",
     });
   } else next();
 };
+
 const validateUserRegister = (req, res, next) => {
   const user = req.body;
 
@@ -45,15 +47,15 @@ const alreadyExistsInDb = async (req, res, next) => {
   else next();
 };
 
-const checkEmailExists = async (req, res, next) => {
-  const { email } = req.body;
+const checkUsernameExists = async (req, res, next) => {
+  const { username } = req.body;
 
-  const user = await User.getBy("email", email);
+  const user = await User.getBy("username", username);
 
   if (!user)
     return next({
       status: 401,
-      message: "that email is not registered to any user",
+      message: "that username is not registered to any user",
     });
 
   req.userFromDb = user;
@@ -86,7 +88,7 @@ module.exports = {
   validateUserLogin,
   validateUserRegister,
   alreadyExistsInDb,
-  checkEmailExists,
+  checkUsernameExists,
   validatePassword,
   hashPassword,
 };

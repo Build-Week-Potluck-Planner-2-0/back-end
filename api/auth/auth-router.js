@@ -6,7 +6,7 @@ const {
   validateUserLogin,
   validateUserRegister,
   alreadyExistsInDb,
-  checkEmailExists,
+  checkUsernameExists,
   validatePassword,
   hashPassword,
 } = require("./auth-middleware");
@@ -29,7 +29,7 @@ router.post(
 router.post(
   "/login",
   validateUserLogin,
-  checkEmailExists,
+  checkUsernameExists,
   validatePassword,
   (req, res, next) => {
     res.status(200).json({
