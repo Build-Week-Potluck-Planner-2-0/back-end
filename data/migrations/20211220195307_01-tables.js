@@ -18,8 +18,8 @@ exports.up = async (knex) => {
         .integer("createdBy")
         .unsigned()
         .references("users.user_id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
     })
     .createTable("potluck_items", (item) => {
       item.increments("item_id");
@@ -32,8 +32,8 @@ exports.up = async (knex) => {
         .integer("potluck_id")
         .unsigned()
         .references("potlucks.potluck_id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
 
       item
         .integer("providedBy")
@@ -52,16 +52,16 @@ exports.up = async (knex) => {
         .unsigned()
         .notNullable()
         .references("users.user_id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
 
       invite
         .integer("from")
         .unsigned()
         .notNullable()
         .references("users.user_id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
     });
 };
 
