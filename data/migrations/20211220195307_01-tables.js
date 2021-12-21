@@ -3,7 +3,6 @@ exports.up = async (knex) => {
     users.increments("user_id");
     users.string("email", 200).notNullable().unique();
     users.string("password", 200).notNullable();
-    users.timestamps(false, true);
   });
 };
 
