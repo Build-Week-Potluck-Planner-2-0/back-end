@@ -1,11 +1,13 @@
 const router = require("express").Router();
 
 router.get("/:user_id", (req, res, next) => {
-  console.log(`here are all the potlucks for ${req.params.id}`);
+  res.json(`here are all the potlucks for ${req.params.user_id}`);
 });
 
 router.get("/:user_id/:potluck_id", (req, res, next) => {
-  console.log(`here is a single potluck related to ${req.params.id}`);
+  res.json(
+    `here is a single potluck with id ${req.params.potluck_id} related to ${req.params.user_id}`
+  );
 });
 
 module.exports = router;

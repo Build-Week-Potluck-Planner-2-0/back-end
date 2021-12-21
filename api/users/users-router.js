@@ -1,11 +1,7 @@
 const router = require("express").Router();
 
 router.get("/:id", (req, res, next) => {
-  res.json(`return all info related to user:  ${req.params.id}`);
-});
-
-router.post("/", (req, res, next) => {
-  res.json(`creating a new user `);
+  res.json({ invitedTo: [1, 2] });
 });
 
 router.delete("/:id", (req, res, next) => {
@@ -15,7 +11,9 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.put("/:id", (req, res, next) => {
-  res.json(`update information on ${req.params.id} user`);
+  res.json(
+    `update information on ${req.params.id} user like username, not email or password`
+  );
 });
 
 module.exports = router;

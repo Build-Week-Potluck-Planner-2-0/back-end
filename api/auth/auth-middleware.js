@@ -27,7 +27,7 @@ const alreadyExistsInDb = async (req, res, next) => {
 
   const user = await User.getBy("email", email);
 
-  if (user) return next({ status: 404, message: "email taken" });
+  if (user) return next({ status: 400, message: "email already in use" });
   else next();
 };
 
@@ -36,7 +36,11 @@ const checkEmailExists = async (req, res, next) => {
 
   const user = await User.getBy("email", email);
 
-  if (!user) return next({ status: 401, message: "invalid credentials" });
+  if (!user)
+    return next({
+      status: 401,
+      message: "that email is not registered to any user",
+    });
 
   req.userFromDb = user;
   next();
@@ -50,16 +54,16 @@ const validatePassword = (req, res, next) => {
   if (bcrypt.compareSync(password, userFromDb.password)) {
     req.token = tokenBuilder(userFromDb);
     next();
-  } else next({ status: 401, message: "invalid credentials" });
+  } else next({ status: 401, message: "wrong password" });
 };
 
 const hashPassword = (req, res, next) => {
   const user = req.body;
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS);
-
   user.password = hash;
 
+  req.token = tokenBuilder(user);
   req.user = user;
   next();
 };
