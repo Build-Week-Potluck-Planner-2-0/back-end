@@ -32,7 +32,9 @@ router.post(
   validatePassword,
   (req, res, next) => {
     res.status(200).json({
-      message: `welcome, ${req.userFromDb.username}`,
+      username: req.userFromDb.username,
+      email: req.userFromDb.email,
+      user_id: req.userFromDb.user_id,
       token: req.token,
     });
   }

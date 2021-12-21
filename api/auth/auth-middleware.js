@@ -59,6 +59,7 @@ const validatePassword = (req, res, next) => {
 
 const hashPassword = (req, res, next) => {
   const user = req.body;
+  
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS);
   user.password = hash;
