@@ -12,7 +12,7 @@ exports.up = async (knex) => {
       potluck.string("time", 200).notNullable();
       potluck.string("location", 200).notNullable();
       potluck.string("title", 200).notNullable();
-      potluck.string("description", 200).notNullable();
+      potluck.string("description", 200);
 
       potluck
         .integer("createdBy")
@@ -26,7 +26,7 @@ exports.up = async (knex) => {
       item.string("name", 200).notNullable();
       item.integer("quantity", 200).defaultTo(1);
       item.string("photo_url", 200);
-      item.string("description", 200).notNullable();
+      item.string("description", 200);
 
       item
         .integer("potluck_id")
@@ -38,14 +38,21 @@ exports.up = async (knex) => {
       item
         .integer("providedBy")
         .unsigned()
-        .defaultTo(0)
         .references("users.user_id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
     .createTable("potluck_invites", (invite) => {
       invite.increments("invite_id");
-      invite.string("status", 200).defaultTo("pending");
+      invite.string("status", 200).defaultTo("pending").notNullable();
+
+      invite
+        .integer("potluck_id")
+        .unsigned()
+        .notNullable()
+        .references("potlucks.potluck_id")
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
 
       invite
         .integer("to")
@@ -55,6 +62,8 @@ exports.up = async (knex) => {
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
 
+      invite.string("to_username", 30).notNullable();
+
       invite
         .integer("from")
         .unsigned()
@@ -62,6 +71,8 @@ exports.up = async (knex) => {
         .references("users.user_id")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
+
+      invite.string("from_username", 30).notNullable();
     });
 };
 
