@@ -17,10 +17,9 @@ exports.up = async (knex) => {
       potluck
         .integer("createdBy")
         .unsigned()
-        .references("user_id")
-        .intable("users")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .references("users.user_id")
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
     })
     .createTable("potluck_items", (item) => {
       item.increments("item_id");
@@ -32,17 +31,15 @@ exports.up = async (knex) => {
       item
         .integer("potluck_id")
         .unsigned()
-        .references("potluck_id")
-        .intable("potlucks")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .references("potlucks.potluck_id")
+        .onDelete("RESTRICT")
+        .onUpdate("RESTRICT");
 
       item
         .integer("providedBy")
         .unsigned()
         .defaultTo(0)
-        .references("user_id")
-        .intable("users")
+        .references("users.user_id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
@@ -54,8 +51,7 @@ exports.up = async (knex) => {
         .integer("to")
         .unsigned()
         .notNullable()
-        .references("user_id")
-        .intable("users")
+        .references("users.user_id")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
 
@@ -63,13 +59,16 @@ exports.up = async (knex) => {
         .integer("from")
         .unsigned()
         .notNullable()
-        .references("user_id")
-        .intable("users")
+        .references("users.user_id")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
     });
 };
 
 exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists("users");
+  await knex.schema
+    .dropTableIfExists("users")
+    .dropTableIfExists("potlucks")
+    .dropTableIfExists("potluck_items")
+    .dropTableIfExists("potluck_invites");
 };

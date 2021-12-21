@@ -1,7 +1,7 @@
 const db = require("../../data/db-config");
 
-const getById = async (id) => {
-  return await db("users").where("id", id).first();
+const getById = async (user_id) => {
+  return await db("users").where({ user_id }).first();
 };
 
 const getBy = async (arg1, arg2) => {
