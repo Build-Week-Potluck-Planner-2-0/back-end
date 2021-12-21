@@ -3,7 +3,8 @@ const router = require("express").Router();
 const User = require("../users/users-model");
 
 const {
-  validateUser,
+  validateUserLogin,
+  validateUserRegister,
   alreadyExistsInDb,
   checkEmailExists,
   validatePassword,
@@ -12,7 +13,7 @@ const {
 
 router.post(
   "/register",
-  validateUser,
+  validateUserRegister,
   alreadyExistsInDb,
   hashPassword,
   (req, res, next) => {
@@ -27,7 +28,7 @@ router.post(
 
 router.post(
   "/login",
-  validateUser,
+  validateUserLogin,
   checkEmailExists,
   validatePassword,
   (req, res, next) => {
