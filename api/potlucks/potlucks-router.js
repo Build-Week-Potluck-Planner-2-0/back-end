@@ -1,13 +1,26 @@
 const router = require("express").Router();
 
-router.get("/:user_id", (req, res, next) => {
-  res.json(`here are all the potlucks for ${req.params.user_id}`);
+const Potlucks = require("./potlucks-model");
+
+// get all potlucks
+router.get("/:user_id/potlucks", (req, res, next) => {
+  Potlucks.getAll(req.params.user_id)
+    .then((resp) => res.json(resp))
+    .catch(next);
 });
 
-router.get("/:user_id/:potluck_id", (req, res, next) => {
-  res.json(
-    `here is a single potluck with id ${req.params.potluck_id} related to ${req.params.user_id}`
-  );
+// get a single potluck
+router.get("/:potluck_id", (req, res, next) => {
+  Potlucks.getById(req.params.potluck_id)
+    .then((resp) => res.json(resp))
+    .catch(next);
+});
+
+// create a new potluck
+router.post("/:user_id", (req, res, next) => {
+  Potlucks.add(req.params.user_id, req.body)
+    .then((resp) => res.json(resp))
+    .catch(next);
 });
 
 module.exports = router;
