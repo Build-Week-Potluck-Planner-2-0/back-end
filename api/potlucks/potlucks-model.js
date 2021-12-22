@@ -64,24 +64,34 @@ const add = async (user_id, potluck) => {
   const potluckDetails = {
     date: potluck.date,
     time: potluck.time,
-    location: potluck.time,
+    location: potluck.location,
     title: potluck.title,
     description: potluck.description,
     createdBy: user_id,
   };
 
-  await db("potlucks as p").insert(potluckDetails);
+  const [newPotluckId] = await db("potlucks as p")
+    .insert(potluckDetails)
+    .returning("p.potluck_id");
 
-  const invites = potluck.invites;
+  if (potluck.invites.length > 0) {
+    const invites = potluck.invites;
 
-  for (const invite of invites) {
-    await db("potlucks_invites").insert(invite);
+    for (const invite of invites) {
+      invite.potluck_id = newPotluckId;
+
+      await db("potluck_invites").insert(invite);
+    }
   }
 
-  const items = potluck.items;
+  if (potluck.items.length > 0) {
+    const items = potluck.items;
 
-  for (const item of items) {
-    await db("potlucks_items").insert(item);
+    for (const item of items) {
+      item.potluck_id = newPotluckId;
+
+      await db("potluck_items").insert(item);
+    }
   }
 
   return getAll(user_id);

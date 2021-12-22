@@ -17,6 +17,7 @@ exports.up = async (knex) => {
       potluck
         .integer("createdBy")
         .unsigned()
+        .notNullable()
         .references("users.user_id")
         .onDelete("RESTRICT")
         .onUpdate("RESTRICT");
