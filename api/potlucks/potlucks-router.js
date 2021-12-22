@@ -23,4 +23,18 @@ router.post("/:user_id", (req, res, next) => {
     .catch(next);
 });
 
+// update a potluck
+router.put("/:potluck_id/:user_id", (req, res, next) => {
+  Potlucks.update(req.params.potluck_id, req.body, req.params.user_id)
+    .then((resp) => res.json(resp))
+    .catch(next);
+});
+
+// delete a potluck
+router.delete("/:potluck_id/:user_id", (req, res, next) => {
+  Potlucks.deletePotluck(req.params.potluck_id, req.params.user_id)
+    .then((resp) => res.json(resp))
+    .catch(next);
+});
+
 module.exports = router;

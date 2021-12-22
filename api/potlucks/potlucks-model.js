@@ -97,4 +97,46 @@ const add = async (user_id, potluck) => {
   return getAll(user_id);
 };
 
-module.exports = { getAll, getById, add };
+const update = async (potluck_id, potluck, user_id) => {
+  const potluckDetails = {
+    date: potluck.date,
+    time: potluck.time,
+    location: potluck.location,
+    title: potluck.title,
+    description: potluck.description,
+  };
+
+  await db("potlucks as p")
+    .where("p.potluck_id", potluck_id)
+    .update(potluckDetails);
+
+  if (potluck.invites.length > 0) {
+    const invites = potluck.invites;
+
+    for (const invite of invites) {
+      await db("potluck_invites as pi")
+        .where("pi.invite_id", invite.invite_id)
+        .update(invite);
+    }
+  }
+
+  if (potluck.items.length > 0) {
+    const items = potluck.items;
+
+    for (const item of items) {
+      await db("potluck_items as pi")
+        .where("pi.item_id", item.item_id)
+        .update(item);
+    }
+  }
+
+  return getAll(user_id);
+};
+
+const deletePotluck = async (potluck_id, user_id) => {
+  await db("potlucks as p").where("p.potluck_id", potluck_id).del();
+
+  return getAll(user_id);
+};
+
+module.exports = { getAll, getById, add, update, deletePotluck };

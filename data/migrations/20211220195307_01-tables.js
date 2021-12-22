@@ -33,7 +33,7 @@ exports.up = async (knex) => {
         .integer("potluck_id")
         .unsigned()
         .references("potlucks.potluck_id")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("RESTRICT");
 
       item
@@ -52,7 +52,7 @@ exports.up = async (knex) => {
         .unsigned()
         .notNullable()
         .references("potlucks.potluck_id")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("RESTRICT");
 
       invite
