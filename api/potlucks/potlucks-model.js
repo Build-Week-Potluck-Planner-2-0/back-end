@@ -44,7 +44,7 @@ const getAll = async (user_id) => {
 
 const getById = async (potluck_id) => {
   const potluck = await db("potlucks as p")
-    .where("potluck_id", potluck_id)
+    .where("p.potluck_id", potluck_id)
     .first();
 
   potluck.invites = await db("potluck_invites as pi").where(
