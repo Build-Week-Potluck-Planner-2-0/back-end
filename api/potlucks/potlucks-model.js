@@ -6,7 +6,7 @@ const getAll = async (user_id) => {
   for (const potluck of hosted) {
     potluck.invites = await db("potluck_invites as pi").where(
       "pi.potluck_id",
-      potluck.createdBy
+      potluck.potluck_id
     );
   }
 
@@ -25,7 +25,7 @@ const getAll = async (user_id) => {
   for (const potluck of invitedTo) {
     potluck.invites = await db("potluck_invites as pi").where(
       "pi.potluck_id",
-      potluck.createdBy
+      potluck.potluck_id
     );
   }
 
