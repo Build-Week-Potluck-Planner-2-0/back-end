@@ -8,6 +8,10 @@ const getBy = async (arg1, arg2) => {
   return await db("users").where(arg1, arg2).first();
 };
 
+const getAll = async () => {
+  return await db("users as u").select("u.username", "u.email", "u.user_id");
+};
+
 const add = async (newUser) => {
   const [createdUser] = await db("users")
     .insert(newUser)
@@ -16,4 +20,4 @@ const add = async (newUser) => {
   return createdUser;
 };
 
-module.exports = { getById, add, getBy };
+module.exports = { getById, add, getBy, getAll };
