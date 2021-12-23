@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Potlucks = require("./potlucks-model");
+const { validatePotluck } = require("./potlucks-middleware");
 
 // get all potlucks
 router.get("/:user_id/potlucks", (req, res, next) => {
@@ -17,7 +18,7 @@ router.get("/:potluck_id", (req, res, next) => {
 });
 
 // create a new potluck
-router.post("/:user_id", (req, res, next) => {
+router.post("/:user_id", validatePotluck, (req, res, next) => {
   Potlucks.add(req.params.user_id, req.body)
     .then((resp) => res.json(resp))
     .catch(next);
