@@ -1,3 +1,6 @@
+## **Front End Url**
+    https://front-end-five-beta.vercel.app/
+
 ## **Test Login Information**
 
 - **testUser1**
@@ -40,44 +43,35 @@
     **returns** : all potlucks related to the user\_id
     **Note:** Requires provided token in request headers as authentication: token
 
-- **Update a Potluck Event:**
+## - **Update a Potluck Event:**
 
-[PUT] api/potlucks/:potluck\_id/:user\_id
+    [PUT] api/potlucks/:potluck\_id/:user\_id
+    **expects:** all potluck details, invites, and items
+    **returns:** all potlucks related to the user\_id
+    **Note:** Requires provided token in request headers as authentication: token
 
-**expects:** all potluck details, invites, and items
+# **User Endpoints**
 
-**returns:** all potlucks related to the user\_id
+## - **Get All Users:**
 
-**Note:** Requires provided token in request headers as authentication: token
+    [GET] api/users
+    **returns** all usernames, emails, and ids
+    **Note:** Requires provided token in request headers as authentication: token
 
-**User Endpoints**
+## - **Register New User:**
 
-- **Get All Users:**
+    [POST] api/auth/register
+    **expects** {username, password, email}
+    **returns** {username, email, user\_id, token}
 
-[GET] api/users
+## - **User Logs In:**
 
-**returns** all usernames, emails, and ids
+    [POST] api/auth/login
+    **expects** {username, password}
+    **returns** {username, email, user\_id, token}
 
-**Note:** Requires provided token in request headers as authentication: token
+## **Run Local Server**
 
-- **Register New User:**
+    npm run server
 
-[POST] api/auth/register
-
-**expects** {username, password, email}
-
-**returns** {username, email, user\_id, token}
-
-- **User Logs In:**
-
-[POST] api/auth/login
-
-**expects** {username, password}
-
-**returns** {username, email, user\_id, token}
-
-**Run Local Server**
-
-npm run server
-
-**Created by: erikjbahena@gmail.com**
+## **Created by: erikjbahena@gmail.com**
