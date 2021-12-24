@@ -1,53 +1,44 @@
-**Test Login Information**
+## **Test Login Information**
 
 - **testUser1**
-
-username: test,
-password: test,
+    username: test,
+    password: test,
 
 - **testUser2**
-
-username: test2,
-password: test,
+    username: test2,
+    password: test,
 
 - **testUser3**
-
-username: test3,
-password: test,
+    username: test3,
+    password: test,
 
 # **Endpoints**
 
 **baseUrl** : [https://bw-potluck-planner-2.herokuapp.com/](https://bw-potluck-planner-2.herokuapp.com/)
 
-**Potluck Endpoints**
+## **Potluck Endpoints**
 
-- **Delete a Potluck Event**
+## - **Delete a Potluck Event**
 
-[DELETE] api/potlucks/:potluck\_id/:user\_id
+    [DELETE] api/potlucks/:potluck\_id/:user\_id
+    **Note:** Requires provided token in request headers as authentication: token
 
-**Note:** Requires provided token in request headers as authentication: token
+## - **Potluck Events I&#39;ve created and am invited to**
 
-- **Potluck Events I&#39;ve created and am invited to**
+    [GET] api/potlucks/:user\_id/potlucks
+    **Note:** Requires provided token in request headers as authentication: token
 
-[GET] api/potlucks/:user\_id/potlucks
+## - **Get a specific potluck**
 
-**Note:** Requires provided token in request headers as authentication: token
+    [GET] api/potlucks/:potluck\_id
+    **Note:** Requires provided token in request headers as authentication: token
 
-- **Get a specific potluck**
+## - **Create a Potluck Event:**
 
-[GET] api/potlucks/:potluck\_id
-
-**Note:** Requires provided token in request headers as authentication: token
-
-- **Create a Potluck Event:**
-
-[POST] api/potlucks/:user\_id
-
-**expects:** all potluck details, invites, and items
-
-**returns** : all potlucks related to the user\_id
-
-**Note:** Requires provided token in request headers as authentication: token
+    [POST] api/potlucks/:user\_id
+    **expects:** all potluck details, invites, and items
+    **returns** : all potlucks related to the user\_id
+    **Note:** Requires provided token in request headers as authentication: token
 
 - **Update a Potluck Event:**
 
