@@ -19,7 +19,8 @@
 
 **baseUrl** : [https://bw-potluck-planner-2.herokuapp.com/](https://bw-potluck-planner-2.herokuapp.com/)
 
-## **Potluck Endpoints**
+
+# **Potluck Endpoints**
 
 ## - **Delete a Potluck Event**
 
